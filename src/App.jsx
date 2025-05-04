@@ -1,6 +1,6 @@
 
 
-import { LandingPage } from "./components/ui/LandingPage";
+import { Homepage } from "./modules/home/Homepage";
 import {
   Popover,
   PopoverContent,
@@ -10,7 +10,7 @@ import {
 function App() {
   return (
     <>
-    <LandingPage/>
+    <Homepage/>
      
 
     </>

@@ -9,17 +9,16 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-  import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input"
+import { Header } from "@/components/ui/header";
 
 
   
-export function LandingPage (){
+export function Homepage (){
     return(
         <>
          <Dialog>
-            <div className="h-[72px] sticky top-0 z-10 bg-white flex items-center px-6 shadow">
-                <span className=" font-semibold leading-7  text-[18px]">Recipe Oraganizer</span>
-            </div>
+        <Header/>
         <div className="flex flex-col px-6 gap-1.5 justify-center min-h-[calc(100dvh-72px)] py-10 items-center">
             <img className="mx-auto" src={recipeimage} width="206px" height="247px" alt="" />
          <h1 className="font-semibold leading-7 text-[18px] text-center">You Have not saved any recipe yet</h1>
