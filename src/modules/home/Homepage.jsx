@@ -1,16 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
 import recipeimage from "@/assets/recipeimg.png";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Header } from "@/components/ui/header";
+import { PlusCircle } from "lucide-react";
+import { CreateRecipeForm } from "./CreateRecipeForm";
 
 export function Homepage() {
   return (
@@ -35,21 +28,13 @@ export function Homepage() {
             <DialogTrigger asChild>
               <Button>
                 <PlusCircle />
-                Create recipe{" "}
+                Create recipe
               </Button>
             </DialogTrigger>
           </div>
         </div>
 
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle></DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
+        <CreateRecipeForm />
       </Dialog>
     </>
   );
