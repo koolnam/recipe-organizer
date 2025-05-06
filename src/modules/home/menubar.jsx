@@ -11,11 +11,12 @@ import {
 const Categories = ["Italian", "Lebanon", "Indian", "Japanese"];
 
 export const Menubaritems = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Category");
+  const [selectedCategory, setSelectedCategory] = useState("Select Category");
   return (
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger>{selectedCategory}</MenubarTrigger>
+
         <MenubarContent>
           {Categories.map((category) => (
             <MenubarItem

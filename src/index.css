@@ -8,6 +8,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-silver: var(--silver);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -42,6 +43,7 @@
 }
 
 :root {
+  --silver: #64748b;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -77,6 +79,7 @@
 }
 
 .dark {
+  --sliver: #64748b;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -118,8 +121,6 @@
     @apply bg-background text-foreground;
   }
 }
-
-
 
 @theme inline {
   --animation-caret-blink: caret-blink 1.25s ease-out infinite;

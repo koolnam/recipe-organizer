@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React from "react";
 import { Menubaritems } from "../menubar";
+import { ShortDescription } from "./ShortDescription";
 
 export const CreateRecipeForm = () => {
   return (
@@ -19,15 +20,15 @@ export const CreateRecipeForm = () => {
       <form className="space-y-8">
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="title">Title</Label>
-          <Input type="text" id="title" placeholder="Title" />
+          <Input type="text" id="title" />
         </div>
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="title">Category</Label>
+          <Label>Category</Label>
           <Menubaritems />
         </div>
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="title">Short description</Label>
-          <Input type="text" id="title" placeholder="Title" />
+          <Label htmlFor="description">Short description</Label>
+          <ShortDescription />
         </div>
       </form>
     </DialogContent>
