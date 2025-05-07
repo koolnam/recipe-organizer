@@ -9,11 +9,16 @@ export const ShortDescription = () => {
     <>
       <Textarea
         id="description"
-        maxLength={length}
         onChange={(e) => setcharCount(e.target.value.length)}
       />
       <div className="font-normal text-sm text-silver leading-5">
-        {charCount}/{length} characters
+        {charCount > length ? (
+          <p>too long description</p>
+        ) : (
+          <p>
+            {charCount} / {length} characters
+          </p>
+        )}
       </div>
     </>
   );

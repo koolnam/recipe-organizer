@@ -1,4 +1,5 @@
 import { Homepage } from "@/modules/home/Homepage";
+import Rating from "@/modules/home/Rating";
 import {
   Popover,
   PopoverContent,
@@ -9,6 +10,7 @@ function App() {
   return (
     <>
       <Homepage />
+      <Rating />
     </>
   );
 }
