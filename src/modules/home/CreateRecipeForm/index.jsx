@@ -32,15 +32,17 @@ export const CreateRecipeForm = () => {
           <Label htmlFor="description">Short description</Label>
           <ShortDescription />
         </div>
-        <div className="grid w-full items-center gap-1.5">
+        <div className="grid w-full items-center gap-2.5">
           <Label htmlFor="rating">Rating</Label>
           <Rating />
+          <div className="pt-3"></div>
+          <div className="border border-[#E4E4E7] h-[1px] w-full"></div>
         </div>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="recipe">Recipe</Label>
           <Textarea id="recipe" />
         </div>
-        <div className="flex justify-end w-full items-center gap-1.5">
+        <div className="flex justify-end w-full items-center pt-5 gap-1.5">
           <Button className="bg-secondary rounded-md gap-2 text-black hover:bg-secondary/80">
             Cancel
           </Button>
