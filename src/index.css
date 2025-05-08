@@ -9,6 +9,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-silver: var(--silver);
+  --color-yellow: var(--yellow);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -43,6 +44,7 @@
 }
 
 :root {
+  --yellow: #ffad1f;
   --silver: #64748b;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
