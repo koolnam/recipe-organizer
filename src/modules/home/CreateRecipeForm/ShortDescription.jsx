@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { forwardRef } from "react";
 
-export const ShortDescription = () => {
+const ShortDescription = forwardRef((props, ref) => {
   const [charCount, setcharCount] = useState(0);
   const length = 40;
 
@@ -10,6 +11,7 @@ export const ShortDescription = () => {
       <Textarea
         id="description"
         onChange={(e) => setcharCount(e.target.value.length)}
+        ref={ref}
       />
       <div className="font-normal text-sm text-silver leading-5">
         {charCount > length ? (
@@ -22,4 +24,5 @@ export const ShortDescription = () => {
       </div>
     </>
   );
-};
+});
+export { ShortDescription };

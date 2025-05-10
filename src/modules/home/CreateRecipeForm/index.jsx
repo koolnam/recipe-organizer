@@ -1,4 +1,5 @@
 import {
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -12,19 +13,32 @@ import { ShortDescription } from "./ShortDescription";
 import { Textarea } from "@/components/ui/textarea";
 import Rating from "@/modules/home/Rating";
 import { Button } from "@/components/ui/button";
-export const CreateRecipeForm = () => {
+import { useState } from "react";
+
+export const CreateRecipeForm = ({ closeDialog }) => {
   const titleRef = useRef();
   const descriptionRef = useRef();
   const ratingRef = useRef();
   const recipeRef = useRef();
   const categoryRef = useRef();
-  const handleSubmit = (e) => {
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     console.log(titleRef.current.value);
     console.log(descriptionRef.current.value);
-    console.log(ratingRef.current.value);
-    console.log(recipeRef.current.value);
-    console.log(categoryRef.current.value);
+    // console.log(ratingRef.current.value);
+    // console.log(recipeRef.current.value);
+    // console.log(categoryRef.current.value);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      closeDialog();
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
   return (
     <DialogContent>
@@ -56,10 +70,14 @@ export const CreateRecipeForm = () => {
           <Textarea id="recipe" ref={recipeRef} />
         </div>
         <div className="flex justify-end w-full items-center pt-5 gap-1.5">
-          <Button className="bg-secondary rounded-md gap-2 text-black hover:bg-secondary/80">
-            Cancel
+          <DialogClose asChild>
+            <Button className="bg-secondary rounded-md gap-2 text-black hover:bg-secondary/80">
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button onClick={handleSubmit} disabled={loading}>
+            {loading ? "Creating..." : "Create Recipe"}
           </Button>
-          <Button onClick={handleSubmit}>Create Recipe</Button>
         </div>
       </form>
     </DialogContent>

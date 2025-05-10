@@ -4,11 +4,13 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Header } from "@/components/ui/header";
 import { PlusCircle } from "lucide-react";
 import { CreateRecipeForm } from "./CreateRecipeForm";
+import { useState } from "react";
 
 export function Homepage() {
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <Header />
         <div className="flex flex-col px-6 gap-1.5 justify-center min-h-[calc(100dvh-72px)] py-10 items-center">
           <img
@@ -34,7 +36,7 @@ export function Homepage() {
           </div>
         </div>
 
-        <CreateRecipeForm />
+        <CreateRecipeForm closeDialog={() => setOpen(false)} />
       </Dialog>
     </>
   );

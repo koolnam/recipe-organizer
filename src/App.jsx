@@ -1,17 +1,17 @@
 import { Homepage } from "@/modules/home/Homepage";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
   const [projectState, setProjectState] = useState({
+    selectedProjectId: undefined,
     project: [],
   });
+  const handleStartProject = (prevState) => {
+    setProjectState({
+      ...prevState,
+      selectedProjectId: null,
+    });
+  };
   return (
     <>
       <Homepage />
