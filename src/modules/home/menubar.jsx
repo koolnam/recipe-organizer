@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { forwardRef } from "react";
 import {
   Menubar,
   MenubarContent,
@@ -8,18 +9,21 @@ import {
 } from "@/components/ui/menubar";
 const Categories = ["Italian", "Lebanon", "Indian", "Japanese"];
 
-export const Menubaritems = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Select Category");
+const Menubaritems = forwardRef(({ value, onChange }, ref) => {
+  const [selectedCategory, setSelectedCategory] = useState(value);
   return (
     <Menubar>
       <MenubarMenu>
-        <MenubarTrigger>{selectedCategory}</MenubarTrigger>
+        <MenubarTrigger ref={ref}>{selectedCategory}</MenubarTrigger>
 
         <MenubarContent>
           {Categories.map((category) => (
             <MenubarItem
               key={category}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => {
+                setSelectedCategory(category);
+                onChange(category);
+              }}
             >
               {category}
               {selectedCategory === category && (
@@ -31,4 +35,5 @@ export const Menubaritems = () => {
       </MenubarMenu>
     </Menubar>
   );
-};
+});
+export { Menubaritems };

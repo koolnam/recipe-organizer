@@ -18,20 +18,21 @@ import { useState } from "react";
 export const CreateRecipeForm = ({ closeDialog }) => {
   const titleRef = useRef();
   const descriptionRef = useRef();
-  const ratingRef = useRef();
   const recipeRef = useRef();
   const categoryRef = useRef();
 
   const [loading, setLoading] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [category, setCategory] = useState("Select Category");
 
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    console.log(titleRef.current.value);
-    console.log(descriptionRef.current.value);
-    // console.log(ratingRef.current.value);
-    // console.log(recipeRef.current.value);
-    // console.log(categoryRef.current.value);
+    const title = titleRef.current.value;
+    const category = categoryRef.current.value;
+    const description = descriptionRef.current.value;
+    const recipe = recipeRef.current.value;
+
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       closeDialog();
@@ -53,7 +54,11 @@ export const CreateRecipeForm = ({ closeDialog }) => {
         </div>
         <div className="grid w-full items-center gap-1.5">
           <Label>Category</Label>
-          <Menubaritems ref={categoryRef} />
+          <Menubaritems
+            ref={categoryRef}
+            value={category}
+            onChange={setCategory}
+          />
         </div>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="description">Short description</Label>
@@ -61,7 +66,7 @@ export const CreateRecipeForm = ({ closeDialog }) => {
         </div>
         <div className="grid w-full items-center gap-2.5">
           <Label htmlFor="rating">Rating</Label>
-          <Rating ref={ratingRef} />
+          <Rating value={rating} onChange={setRating} />
           <div className="pt-3"></div>
           <div className="border border-[#E4E4E7] h-[1px] w-full"></div>
         </div>
