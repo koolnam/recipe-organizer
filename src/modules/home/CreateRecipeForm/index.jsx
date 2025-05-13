@@ -15,11 +15,10 @@ import Rating from "@/modules/home/Rating";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export const CreateRecipeForm = ({ closeDialog }) => {
+export const CreateRecipeForm = ({ closeDialog, onAdd }) => {
   const titleRef = useRef();
   const descriptionRef = useRef();
   const recipeRef = useRef();
-  const categoryRef = useRef();
 
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
@@ -29,9 +28,27 @@ export const CreateRecipeForm = ({ closeDialog }) => {
     setLoading(true);
     e.preventDefault();
     const title = titleRef.current.value;
-    const category = categoryRef.current.value;
     const description = descriptionRef.current.value;
     const recipe = recipeRef.current.value;
+
+    if (!title || !recipe) {
+      setError("Title and recipe are required!");
+      setLoading(false);
+      return;
+    }
+
+    onAdd({
+      title,
+      category,
+      description,
+      recipe,
+      rating,
+    });
+    titleRef.current.value = "";
+    descriptionRef.current.value = "";
+    recipeRef.current.value = "";
+    setCategory("Select Category");
+    setRating(0);
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -47,18 +64,15 @@ export const CreateRecipeForm = ({ closeDialog }) => {
         <DialogTitle>Create recipe </DialogTitle>
         <DialogDescription>Add your recipe details below</DialogDescription>
       </DialogHeader>
-      <form className="space-y-8">
+
+      <form onSubmit={handleSubmit} className="space-y-8">
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="title">Title</Label>
           <Input type="text" id="title" ref={titleRef} />
         </div>
         <div className="grid w-full items-center gap-1.5">
           <Label>Category</Label>
-          <Menubaritems
-            ref={categoryRef}
-            value={category}
-            onChange={setCategory}
-          />
+          <Menubaritems value={category} onChange={setCategory} />
         </div>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="description">Short description</Label>
@@ -80,7 +94,7 @@ export const CreateRecipeForm = ({ closeDialog }) => {
               Cancel
             </Button>
           </DialogClose>
-          <Button onClick={handleSubmit} disabled={loading}>
+          <Button type="submit" disabled={loading}>
             {loading ? "Creating..." : "Create Recipe"}
           </Button>
         </div>

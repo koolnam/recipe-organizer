@@ -5,9 +5,22 @@ import { Header } from "@/components/ui/header";
 import { PlusCircle } from "lucide-react";
 import { CreateRecipeForm } from "./CreateRecipeForm";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export function Homepage() {
   const [open, setOpen] = useState(false);
+
+  const handleAddProject = (projectData) => {
+    const newproject = {
+      ...projectData,
+      id: uuidv4(),
+    };
+    setProjectState({
+      ...projectState,
+      project: [...projectState.project, newproject],
+    });
+  };
+
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -36,7 +49,10 @@ export function Homepage() {
           </div>
         </div>
 
-        <CreateRecipeForm closeDialog={() => setOpen(false)} />
+        <CreateRecipeForm
+          onAdd={handleAddProject}
+          closeDialog={() => setOpen(false)}
+        />
       </Dialog>
     </>
   );
