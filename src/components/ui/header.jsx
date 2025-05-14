@@ -1,4 +1,7 @@
 import React from "react";
+import { PlusCircle } from "lucide-react";
+import { DialogTrigger } from "./dialog";
+import { Button } from "./button";
 
 export const Header = () => {
   return (
@@ -6,6 +9,14 @@ export const Header = () => {
       <span className=" font-semibold leading-7  text-[18px]">
         Recipe Oraganizer
       </span>
+      <div className="ml-auto">
+        <DialogTrigger asChild>
+          <Button>
+            <PlusCircle />
+            Add recipe
+          </Button>
+        </DialogTrigger>
+      </div>
     </header>
   );
 };
