@@ -1,9 +1,12 @@
 import { Homepage } from "@/modules/home/Homepage";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 function App() {
-  const [projectState, setProjectState] = useState({
-    project: [],
+  const [projectState, setProjectState] = useState(() => {
+    const savedProjects = localStorage.getItem("projectState") || "[]";
+    return {
+      project: savedProjects ? JSON.parse(savedProjects) : [],
+    };
   });
 
   const handleAddProject = (projectData) => {
@@ -16,7 +19,9 @@ function App() {
       project: [...projectState.project, newproject],
     });
   };
-  console.log(projectState);
+  useEffect(() => {
+    localStorage.setItem("projectState", JSON.stringify(projectState.project));
+  }, [projectState.project]);
 
   console.log("Current project state:", projectState);
 

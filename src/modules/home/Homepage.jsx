@@ -22,8 +22,16 @@ import { CardFooter } from "@/components/ui/card";
 
 export function Homepage({ projectState, onAdd }) {
   const [open, setOpen] = useState(false);
-  const recipes = projectState.project;
+  // const recipes = projectState.project;
   const haveRecipe = projectState.project.length > 0;
+  const formattedDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const getProject = localStorage.getItem("projectState");
+  console.log(JSON.parse(getProject));
 
   return (
     <>
@@ -135,7 +143,7 @@ export function Homepage({ projectState, onAdd }) {
                     <CardFooter className="flex justify-between pt-4">
                       <div className="flex items-center text-sm text-muted-foreground">
                         <CalendarIcon className="mr-1 h-4 w-4" />
-                        {recipe.date}
+                        {formattedDate}
                       </div>
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => (

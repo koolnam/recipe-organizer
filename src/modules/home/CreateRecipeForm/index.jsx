@@ -25,7 +25,6 @@ export const CreateRecipeForm = ({ closeDialog, onAdd }) => {
   const [category, setCategory] = useState("Select Category");
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
     const title = titleRef.current.value;
     const description = descriptionRef.current.value;
@@ -33,30 +32,31 @@ export const CreateRecipeForm = ({ closeDialog, onAdd }) => {
 
     if (!title || !recipe) {
       setError("Title and recipe are required!");
-      setLoading(false);
+
       return;
     }
 
-    onAdd({
-      title,
-      category,
-      description,
-      recipe,
-      rating,
-    });
-    titleRef.current.value = "";
-    descriptionRef.current.value = "";
-    recipeRef.current.value = "";
-    setCategory("Select Category");
-    setRating(0);
-
     try {
+      setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      onAdd({
+        title,
+        category,
+        description,
+        recipe,
+        rating,
+      });
       closeDialog();
     } catch (error) {
       console.log(error);
+    } finally {
+      titleRef.current.value = "";
+      descriptionRef.current.value = "";
+      recipeRef.current.value = "";
+      setCategory("Select Category");
+      setRating(0);
+      setLoading(false);
     }
-    setLoading(false);
   };
   return (
     <DialogContent>
