@@ -63,21 +63,24 @@ export function Homepage({ projectState, onAdd }) {
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold flex items-center gap-2">
-                Your Recipes{" "}
-                <Badge variant="secondary" className="ml-2">
+            <div className="flex pt-4 items-center justify-between">
+              <h1 className="text-2xl pl-5 font-bold flex items-center gap-2">
+                Your Recipes
+                <Badge variant="secondary" className="ml-2 rounded-[30px]">
                   {projectState.project.length}
                 </Badge>
               </h1>
             </div>
 
-            <ul className="grid gap-6 grid-cols-1 md:grid-cols-2">
+            <ul className="grid gap-6 grid-cols-1 md:grid-cols-3 p-15">
               {projectState.project.map((recipe) => (
                 <li key={recipe.id}>
                   <Card className="h-full">
                     <CardHeader className="flex flex-row items-start justify-between pb-2">
-                      <Badge variant="outline" className="bg-background">
+                      <Badge
+                        variant="outline"
+                        className="bg-background rounded-[30px]"
+                      >
                         {recipe.category}
                       </Badge>
                       <DropdownMenu>
