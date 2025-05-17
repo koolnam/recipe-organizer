@@ -19,13 +19,27 @@ function App() {
       project: [...projectState.project, newproject],
     });
   };
+  const handleDeleteProject = (projectId) => {
+    setProjectState({
+      ...projectState,
+      project: projectState.project.filter(
+        (project) => project.id !== projectId
+      ),
+    });
+  };
   useEffect(() => {
     localStorage.setItem("projectState", JSON.stringify(projectState.project));
   }, [projectState.project]);
 
   console.log("Current project state:", projectState);
 
-  return <Homepage onAdd={handleAddProject} projectState={projectState} />;
+  return (
+    <Homepage
+      onAdd={handleAddProject}
+      projectState={projectState}
+      onDelete={handleDeleteProject}
+    />
+  );
 }
 
 export default App;

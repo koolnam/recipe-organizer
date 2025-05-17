@@ -20,7 +20,7 @@ import { CardHeader } from "@/components/ui/card";
 import { CardContent } from "@/components/ui/card";
 import { CardFooter } from "@/components/ui/card";
 
-export function Homepage({ projectState, onAdd }) {
+export function Homepage({ projectState, onAdd, onDelete }) {
   const [open, setOpen] = useState(false);
   // const recipes = projectState.project;
   const haveRecipe = projectState.project.length > 0;
@@ -114,7 +114,7 @@ export function Homepage({ projectState, onAdd }) {
                               Edit recipe
                             </span>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => onDelete(recipe.id)}>
                             <span className="flex items-center">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
