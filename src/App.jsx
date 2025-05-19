@@ -27,6 +27,7 @@ function App() {
       ),
     });
   };
+
   useEffect(() => {
     localStorage.setItem("projectState", JSON.stringify(projectState.project));
   }, [projectState.project]);

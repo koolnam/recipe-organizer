@@ -1,39 +1,34 @@
-import React, { useState } from "react";
-import { forwardRef } from "react";
 import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-const Categories = ["Italian", "Lebanon", "Indian", "Japanese"];
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"; // assuming ShadCN import
 
-const Menubaritems = forwardRef(({ value, onChange }, ref) => {
-  const [selectedCategory, setSelectedCategory] = useState(value);
+const Categories = ["Italian", "Chinese", "Lebanon", "Indian", "Japanese"];
+
+const Menubaritems = ({ value, onChange }) => {
   return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger ref={ref}>{selectedCategory}</MenubarTrigger>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          className="w-full flex items-center rounded-sm px-2 py-1 text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+          type="button"
+        >
+          {value}
+        </button>
+      </DropdownMenuTrigger>
 
-        <MenubarContent>
-          {Categories.map((category) => (
-            <MenubarItem
-              key={category}
-              onClick={() => {
-                setSelectedCategory(category);
-                onChange(category);
-              }}
-            >
-              {category}
-              {selectedCategory === category && (
-                <span className="ml-26">✓</span>
-              )}
-            </MenubarItem>
-          ))}
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
+      <DropdownMenuContent>
+        {Categories.map((category) => (
+          <DropdownMenuItem key={category} onSelect={() => onChange(category)}>
+            {category}
+            {value === category && <span className="ml-2">✓</span>}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
-});
+};
+
 export { Menubaritems };
