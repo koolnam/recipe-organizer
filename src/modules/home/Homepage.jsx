@@ -33,6 +33,8 @@ import {
 
 export function Homepage({ projectState, onAdd, onDelete }) {
   const [open, setOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   // const recipes = projectState.project;
   const haveRecipe = projectState.project.length > 0;
   const formattedDate = new Date().toLocaleDateString("en-US", {
@@ -40,9 +42,6 @@ export function Homepage({ projectState, onAdd, onDelete }) {
     month: "long",
     day: "numeric",
   });
-
-  const getProject = localStorage.getItem("projectState");
-  console.log(JSON.parse(getProject));
 
   return (
     <>
@@ -85,7 +84,7 @@ export function Homepage({ projectState, onAdd, onDelete }) {
 
             <ul className="grid gap-6 grid-cols-1 md:grid-cols-3 p-15">
               {projectState.project.map((recipe) => (
-                <li key={recipe.id}>
+                <li key={`${recipe.id}-${recipe.title}`}>
                   <Card className="h-full">
                     <CardHeader className="flex flex-row items-start justify-between pb-2">
                       <Badge
@@ -125,50 +124,35 @@ export function Homepage({ projectState, onAdd, onDelete }) {
                               Edit recipe
                             </span>
                           </DropdownMenuItem>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <DropdownMenuItem>
-                                <span className="flex items-center">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="mr-2 h-4 w-4"
-                                  >
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                  </svg>
-                                  Delete recipe
-                                </span>
-                              </DropdownMenuItem>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Are you absolutely sure?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  This action cannot be undone. This will
-                                  permanently delete your account and remove
-                                  your data from our servers.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => onDelete(recipe.id)}
-                                >
-                                  Delete
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
+                          <DropdownMenuItem
+                            onSelect={(e) => {
+                              // Prevent default focus conflict
+                              setSelectedId(recipe.id);
+                              // Let the dropdown close before opening AlertDialog
+                              setTimeout(() => {
+                                setConfirmDelete(true);
+                              }, 100); // Wait 100ms after dropdown closes
+                            }}
+                          >
+                            <span className="flex items-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="mr-2 h-4 w-4"
+                              >
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                              </svg>
+                              Delete recipe
+                            </span>
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </CardHeader>
@@ -204,6 +188,35 @@ export function Homepage({ projectState, onAdd, onDelete }) {
         )}
         <CreateRecipeForm onAdd={onAdd} closeDialog={() => setOpen(false)} />
       </Dialog>
+      <AlertDialog open={confirmDelete} onOpenChange={setConfirmDelete}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete your recipe.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={() => {
+                setConfirmDelete(false);
+                setSelectedId(null);
+              }}
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                onDelete(selectedId);
+                setConfirmDelete(false);
+                setSelectedId(null);
+              }}
+            >
+              Yes, delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }
