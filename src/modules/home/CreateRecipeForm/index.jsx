@@ -30,11 +30,11 @@ export const CreateRecipeForm = ({ closeDialog, onAdd }) => {
     const description = descriptionRef.current.value;
     const recipe = recipeRef.current.value;
 
-    if (!title || !recipe) {
-      setError("Title and recipe are required!");
+    // if (!title || !recipe) {
+    //   setError("Title and recipe are required!");
 
-      return;
-    }
+    //   return;
+    // }
 
     try {
       setLoading(true);

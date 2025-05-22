@@ -2,7 +2,7 @@ import recipeimage from "@/assets/recipeimg.png";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Header } from "@/components/ui/header";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, CheckCircle } from "lucide-react";
 import { CreateRecipeForm } from "./CreateRecipeForm";
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
@@ -35,6 +35,7 @@ export function Homepage({ projectState, onAdd, onDelete }) {
   const [open, setOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [success, setSuccess] = useState("");
   // const recipes = projectState.project;
   const haveRecipe = projectState.project.length > 0;
   const formattedDate = new Date().toLocaleDateString("en-US", {
@@ -45,6 +46,15 @@ export function Homepage({ projectState, onAdd, onDelete }) {
 
   return (
     <>
+      {success && (
+        <div className="fixed bottom-8 left-0 right-0 flex justify-center">
+          <div className="flex items-center gap-2 px-6 py-3 bg-white rounded-full shadow-md border border-gray-100 animate-popupFromBottom">
+            <CheckCircle className="w-5 h-5 text-green-500" />
+            <span className="text-gray-800 font-medium">{success}</span>
+          </div>
+        </div>
+      )}
+
       <Dialog open={open} onOpenChange={setOpen}>
         <Header />
         {!haveRecipe ? (
@@ -186,7 +196,16 @@ export function Homepage({ projectState, onAdd, onDelete }) {
             </ul>
           </div>
         )}
-        <CreateRecipeForm onAdd={onAdd} closeDialog={() => setOpen(false)} />
+        <CreateRecipeForm
+          onAdd={(data) => {
+            onAdd(data);
+            setSuccess("Recipe added successfully!");
+            setTimeout(() => {
+              setSuccess("");
+            }, 3000);
+          }}
+          closeDialog={() => setOpen(false)}
+        />
       </Dialog>
       <AlertDialog open={confirmDelete} onOpenChange={setConfirmDelete}>
         <AlertDialogContent>
